@@ -29,6 +29,8 @@ Este analisis permitira a la Tienda Aurelion:
 Ademas, los resultados podran visualizarse en graficos comparativos que faciliten la interpretacion de las tendencias de ventas y promuevan
 una toma de decisiones comerciales mas informada.
 
+## Dataset de referencia: fuente, definición, estructura, tipos y escala de medición
+
 ## Datos Requeridos
 
 Los datos fueron provistos por los duenios de la tienda Aurelion
@@ -78,6 +80,18 @@ Base que representa una Tienda, con catálogo de productos, registro de clientes
 | importe         | int  | Razón   |
 
 ## Información, pasos, pseudocodigo y diagrama del programa (Sprint 1)
+
+Inicio Cargar textos de documentación mientras
+True:
+Mostrar Menu:
+1 - Mostrar problema y solucion
+2 - Mostrar pseudocodigo
+3 -Mostrar datasets utilizados
+4 -Mostrar diagrama de flujo
+5 - Fin
+Leer opción
+Si opción == 1..4 imprimir texto asociado
+Si opción == 5 romper bucle fin
 
 ### Información
 
