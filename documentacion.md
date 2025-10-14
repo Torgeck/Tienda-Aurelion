@@ -18,73 +18,55 @@ que otros se agotan rapidamente sin aprovechar su potencial comercial
 
 Los datos fueron provistos por los duenios de la tienda Aurelion
 
-### Detalle_venta
+### Definición
+Base que representa una Tienda, con catálogo de productos, registro de clientes, detalles de ventas y ventas.
 
-- id_venta
-  - Tipo cualitativo
-  - Ordinal
-- id_producto
-  - Tipo cualitativo
-  - Ordinal
-- nombre_producto
-  - Tipo cualitativo
-  - Nominal
-- cantidad
-  - Tipo cuantitativo
-  - Razon
-- precio_unitario
-  - Tipo cuantitativo
-  - Razon
-- importe
-  - Tipo cuantitativo
-  - Razon
+### Productos — ~100 filas
+| Campo           | Tipo  | Escala |
+|-----------------|-------|--------|
+| id_producto     | int   | Nominal|
+| nombre_producto | str   | Nominal|
+| precio_unitario | str   | Razón  |
 
-### Clientes
+### Clientes — ~100 filas
+| Campo           | Tipo  | Escala   |
+|-----------------|-------|----------|
+| id_cliente      | int   | Nominal  |
+| nombre_cliente  | str   | Nominal  |
+| email           | str   | Nominal  |
+| ciudad          | str   | Nominal  |
+| fecha_alta      | date  | Intervalo|
 
-- id_cliente
-  - Tipo cualitativo
-  - Ordinal
-- nombre_cliente
-  - Tipo cualitativo
-  - Nominal
-- email
-  - Tipo cualitativo
-  - Nominal
-- ciudad
-  - Tipo cualitativo
-  - Nominal
-- fecha_alta
-  - Tipo cuantitativo
-  - Intervalo
+### Ventas — ~120 filas
+| Campo           | Tipo  | Escala   |
+|-----------------|-------|----------|
+| id_venta        | int   | Nominal  |
+| fecha           | date  | Intervalo|
+| id_cliente      | int   | Nominal  |
+| nombre_cliente  | str   | Nominal  |
+| email           | str   | Nominal  |
+| medio_pago      | str   | Nominal  |
 
-### Ventas
+### Detalles de Ventas — ~350 filas
+| Campo           | Tipo  | Escala   |
+|-----------------|-------|----------|
+| id_venta        | int   | Nominal  |
+| id_producto     | int   | Nominal  |
+| nombre_producto | str   | Nominal  |
+| cantidad        | int   | Razón    |
+| precio_unitario | int   | Razón    |
+| importe         | int   | Razón    |
 
-- id_venta
-  - Tipo cualitativo
-  - Nominal
-- id_cliente
-  - Tipo cualitativo
-  - Nominal
-- nombre_cliente
-  - Tipo cualitativo
-  - Nominal
-- fecha
-  - Tipo cuantitativo
-  - Intervalo
-- email
-  - Tipo cualitativo
-  - Nominal
-- medio_pago
-  - Tipo cualitativo
-  - Nominal
+## Información, pasos, pseudocodigo y diagrama del programa (Sprint 1)
 
-### Productos
+### Información
+En esta etapa, el programa funciona como un visor interactivo de la documentación, para
+que el usuario obtenga rápidamente la información clave del proyecto desde la terminal.
 
-- id_producto
-- nombre_producto
-- categoria
-- precio_unitario
+### Contenido accesible desde el menu
+Mostrar problema y solucion
+Mostrar pseudocodigo
+Mostrar datasets utilizados
+Mostrar diagrama de flujo
 
-## Pseudocodigo
-
-## Diagrama
+## Sugerencias y mejoras aplicadas con Copilot
