@@ -6,11 +6,11 @@ Tienda Aurelion es una cadena de mercado con varias sedes a lo largo de Cordoba.
 
 ## Problema
 
-- Control de productos mas vendidos y productos menos vendidos (Para optimizar el stock de los mismos)
-- Hacer combos de productos mas vendidos (descuentos, promociones)
-- Ver que medio de pago es mas utilizado para plantear descuentos o sumar postnets nuevos (falta de postnets)
-- Ver si hay fraude/perdida en las ventas y cuanto es el % de la misma
-- Analisis de clientes por cantidad de gastos/zona/etc para ofrecerles promociones (Tipo tiers de beneficios)
+La Tienda Aurelion no tiene implementado un sistema que permita saber de forma automatica cuales son los productos mas vendidos
+y cuales presentan una baja rotacion. Esta falta de informacion dificulta la toma de decisiones respecto a la gestion del stock y
+la implementacion de estrategias de descuento/promociones.
+Como consecuencia, algunos productos permanecen en inventario durante largos periodos (generando costos de almacenamiento), mientras
+que otros se agotan rapidamente sin aprovechar su potencial comercial
 
 ## Solucion
 
