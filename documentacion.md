@@ -6,85 +6,103 @@ Tienda Aurelion es una cadena de mercado con varias sedes a lo largo de Cordoba.
 
 ## Problema
 
-- Control de productos mas vendidos y productos menos vendidos (Para optimizar el stock de los mismos)
-- Hacer combos de productos mas vendidos (descuentos, promociones)
-- Ver que medio de pago es mas utilizado para plantear descuentos o sumar postnets nuevos (falta de postnets)
-- Ver si hay fraude/perdida en las ventas y cuanto es el % de la misma
-- Analisis de clientes por cantidad de gastos/zona/etc para ofrecerles promociones (Tipo tiers de beneficios)
+La Tienda Aurelion no tiene implementado un sistema que permita saber de forma automatica cuales son los productos mas vendidos
+y cuales presentan una baja rotacion. Esta falta de informacion dificulta la toma de decisiones respecto a la gestion del stock y
+la implementacion de estrategias de descuento/promociones.
+Como consecuencia, algunos productos permanecen en inventario durante largos periodos (generando costos de almacenamiento), mientras
+que otros se agotan rapidamente sin aprovechar su potencial comercial
 
 ## Solucion
+
+Se propone desarrollar una herramienta de analisis en **Python**, usando librerias como **pandas, numpy y matplotlib,** que permitira determinar
+los **productos mas y menos vendidos** a partir de los registros de las bases de datos **productos.xlsx, ventas.xls, y detalles_ventas.xlsx**.
+
+Con esta informacion, el sistema sugerira aplicar un descuento (determinado por el usuario) sobre el grupo de productos de baja rotacion para
+incentivar la venta de los mismos.
+
+Este analisis permitira a la Tienda Aurelion:
+
+- Optimizar la gestion del stock de productos
+- Aumentar las ventas de productos con bajo movimiento
+- Mejorar la rentabilidad mediante estrategias de precios basados en datos reales
+
+Ademas, los resultados podran visualizarse en graficos comparativos que faciliten la interpretacion de las tendencias de ventas y promuevan
+una toma de decisiones comerciales mas informada.
+
+## Dataset de referencia: fuente, definición, estructura, tipos y escala de medición
 
 ## Datos Requeridos
 
 Los datos fueron provistos por los duenios de la tienda Aurelion
 
-### Detalle_venta
+### Definición
 
-- id_venta
-  - Tipo cualitativo
-  - Ordinal
-- id_producto
-  - Tipo cualitativo
-  - Ordinal
-- nombre_producto
-  - Tipo cualitativo
-  - Nominal
-- cantidad
-  - Tipo cuantitativo
-  - Razon
-- precio_unitario
-  - Tipo cuantitativo
-  - Razon
-- importe
-  - Tipo cuantitativo
-  - Razon
+Base que representa una Tienda, con catálogo de productos, registro de clientes, detalles de ventas y ventas.
 
-### Clientes
+### Productos — ~100 filas
 
-- id_cliente
-  - Tipo cualitativo
-  - Ordinal
-- nombre_cliente
-  - Tipo cualitativo
-  - Nominal
-- email
-  - Tipo cualitativo
-  - Nominal
-- ciudad
-  - Tipo cualitativo
-  - Nominal
-- fecha_alta
-  - Tipo cuantitativo
-  - Intervalo
+| Campo           | Tipo | Escala  |
+| --------------- | ---- | ------- |
+| id_producto     | int  | Nominal |
+| nombre_producto | str  | Nominal |
+| precio_unitario | str  | Razón   |
 
-### Ventas
+### Clientes — ~100 filas
 
-- id_venta
-  - Tipo cualitativo
-  - Nominal
-- id_cliente
-  - Tipo cualitativo
-  - Nominal
-- nombre_cliente
-  - Tipo cualitativo
-  - Nominal
-- fecha
-  - Tipo cuantitativo
-  - Intervalo
-- email
-  - Tipo cualitativo
-  - Nominal
-- medio_pago
-  - Tipo cualitativo
-  - Nominal
+| Campo          | Tipo | Escala    |
+| -------------- | ---- | --------- |
+| id_cliente     | int  | Nominal   |
+| nombre_cliente | str  | Nominal   |
+| email          | str  | Nominal   |
+| ciudad         | str  | Nominal   |
+| fecha_alta     | date | Intervalo |
 
-### Productos
+### Ventas — ~120 filas
 
-- id_producto
-- nombre_producto
-- categoria
-- precio_unitario
+| Campo          | Tipo | Escala    |
+| -------------- | ---- | --------- |
+| id_venta       | int  | Nominal   |
+| fecha          | date | Intervalo |
+| id_cliente     | int  | Nominal   |
+| nombre_cliente | str  | Nominal   |
+| email          | str  | Nominal   |
+| medio_pago     | str  | Nominal   |
 
-## Pseudocodigo
+### Detalles de Ventas — ~350 filas
 
-## Diagrama
+| Campo           | Tipo | Escala  |
+| --------------- | ---- | ------- |
+| id_venta        | int  | Nominal |
+| id_producto     | int  | Nominal |
+| nombre_producto | str  | Nominal |
+| cantidad        | int  | Razón   |
+| precio_unitario | int  | Razón   |
+| importe         | int  | Razón   |
+
+## Información, pasos, pseudocodigo y diagrama del programa (Sprint 1)
+
+Inicio Cargar textos de documentación mientras
+True:
+Mostrar Menu:
+1 - Mostrar problema y solucion
+2 - Mostrar pseudocodigo
+3 -Mostrar datasets utilizados
+4 -Mostrar diagrama de flujo
+5 - Fin
+Leer opción
+Si opción == 1..4 imprimir texto asociado
+Si opción == 5 romper bucle fin
+
+### Información
+
+En esta etapa, el programa funciona como un visor interactivo de la documentación, para
+que el usuario obtenga rápidamente la información clave del proyecto desde la terminal.
+
+### Contenido accesible desde el menu
+
+Mostrar problema y solucion
+Mostrar pseudocodigo
+Mostrar datasets utilizados
+Mostrar diagrama de flujo
+
+## Sugerencias y mejoras aplicadas con Copilot
