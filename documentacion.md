@@ -2,38 +2,38 @@
 
 ## Tema
 
-Tienda Aurelion es una cadena de mercado con varias sedes a lo largo de Cordoba. Dentro de su catalogo ofrece biene de consumo tales como alimentos varios y articulos de limpieza.
+Tienda Aurelion es una cadena de mercado con varias sedes a lo largo de Córdoba. Dentro de su catalogo ofrece bienes de consumo tales como alimentos varios y artículos de limpieza.
 
 ## Problema
 
-La Tienda Aurelion no tiene implementado un sistema que permita saber de forma automatica cuales son los productos mas vendidos
-y cuales presentan una baja rotacion. Esta falta de informacion dificulta la toma de decisiones respecto a la gestion del stock y
-la implementacion de estrategias de descuento/promociones.
+La Tienda Aurelion no tiene implementado un sistema que permita saber de forma automática cuales son los productos mas vendidos
+y cuales presentan una baja rotación. Esta falta de información dificulta la toma de decisiones respecto a la gestión del stock y
+la implementación de estrategias de descuento/promociones.
 Como consecuencia, algunos productos permanecen en inventario durante largos periodos (generando costos de almacenamiento), mientras
-que otros se agotan rapidamente sin aprovechar su potencial comercial
+que otros se agotan rápidamente sin aprovechar su potencial comercial. Todo esto se traduce como perdida para la tienda.
 
-## Solucion
+## Solución
 
-Se propone desarrollar una herramienta de analisis en **Python**, usando librerias como **pandas, numpy y matplotlib,** que permitira determinar
+Se propone desarrollar una herramienta de análisis en **Python**, usando librerías como **pandas, numpy y matplotlib,** que permitirá determinar
 los **productos mas y menos vendidos** a partir de los registros de las bases de datos **productos.xlsx, ventas.xls, y detalles_ventas.xlsx**.
 
-Con esta informacion, el sistema sugerira aplicar un descuento (determinado por el usuario) sobre el grupo de productos de baja rotacion para
+Con esta información, el sistema sugerirá aplicar un descuento (determinado por el usuario) sobre el grupo de productos de baja rotación para
 incentivar la venta de los mismos.
 
-Este analisis permitira a la Tienda Aurelion:
+Este análisis permitirá a la Tienda Aurelion:
 
-- Optimizar la gestion del stock de productos
+- Optimizar la gestión del stock de productos
 - Aumentar las ventas de productos con bajo movimiento
 - Mejorar la rentabilidad mediante estrategias de precios basados en datos reales
 
-Ademas, los resultados podran visualizarse en graficos comparativos que faciliten la interpretacion de las tendencias de ventas y promuevan
+Ademas, los resultados podrán visualizarse en gráficos comparativos que faciliten la interpretación de las tendencias de ventas y promuevan
 una toma de decisiones comerciales mas informada.
 
 ## Dataset de referencia: fuente, definición, estructura, tipos y escala de medición
 
 ## Datos Requeridos
 
-Los datos fueron provistos por los duenios de la tienda Aurelion
+Los datos fueron provistos por los dueños de la tienda Aurelion
 
 ### Definición
 
@@ -81,28 +81,90 @@ Base que representa una Tienda, con catálogo de productos, registro de clientes
 
 ## Información, pasos, pseudocodigo y diagrama del programa (Sprint 1)
 
-Inicio Cargar textos de documentación mientras
-True:
-Mostrar Menu:
-1 - Mostrar problema y solucion
-2 - Mostrar pseudocodigo
-3 -Mostrar datasets utilizados
-4 -Mostrar diagrama de flujo
-5 - Fin
-Leer opción
-Si opción == 1..4 imprimir texto asociado
-Si opción == 5 romper bucle fin
-
 ### Información
 
 En esta etapa, el programa funciona como un visor interactivo de la documentación, para
 que el usuario obtenga rápidamente la información clave del proyecto desde la terminal.
 
-### Contenido accesible desde el menu
+### Contenido accesible desde el menú
 
-Mostrar problema y solucion
+Mostrar tema, problema y solución
 Mostrar pseudocodigo
-Mostrar datasets utilizados
-Mostrar diagrama de flujo
+Mostrar información de los datasets
+Mostrar sugerencia de copilot
 
-## Sugerencias y mejoras aplicadas con Copilot
+### Pasos
+
+    1. Definir rutas de archivos para mostrar por consola
+    2. Definir función parar leer y mostrar por pantalla los archivos según una ruta pasada por parámetro
+    3. Iniciar bucle de menú
+       1. Mostrar diferentes opciones
+       2. Leer opción ingresada por el usuario y ejecutar la acción correspondiente
+
+### Pseudocodigo
+
+INICIO
+Definir rutas:
+path_problema, path_pseudocodigo, path_datasets, path_sugerencias
+
+    Definir funcion:
+        leer_mostrar_archivo(ruta):
+            intentar abrir archivo en 'ruta' con UTF-8
+            SI existe
+                leer y mostrar contenido
+            SI no existe: informar archivo no encontrado
+                capturar e informar otros errores
+        FIN leer_mostrar_archivo
+
+    salir = False
+    MIENTRAS salir == False
+        mostrar menu por consola:
+            1 - Mostrar tema, problema y solución
+            2 - Mostrar pseudocódigo
+            3 - Mostrar datasets utilizados (5 primeras filas)
+            4 - Sugerencias y mejoras con Copilot
+            5 - Salir
+        leer opción
+
+        validar opción:
+            SI opción == "1":
+                leer_mostrar_archivo(path_problema)
+
+            SI opción == "2":
+                leer_mostrar_archivo(path_pseudocodigo)
+
+            SI opción == "3":
+                leer_mostrar_archivo(path_datasets)
+
+            SI opción == "4":
+                leer_mostrar_archivo(path_sugerencias)
+
+            SI opción == "5":
+                salir = True
+            SINO
+                mostrar "Opción no válida"
+        FIN MIENTRAS
+
+FIN
+
+### Sugerencias y mejoras de Copilot
+
+#### Sugerencias para la documentación
+
+- Añadir un README con: objetivo del proyecto, instrucciones de instalación (requirements), cómo ejecutar, ejemplos de salida.
+- Documentar esquema de cada archivo de datos (nombres exactos, tipos, valores nulos esperados) — ya tienes parte de esto; conviértelo en una tabla por dataset y ejemplos de 3 filas.
+- Añadir KPIs y métricas a calcular (p. ej. productos top-N por cantidad/importe, rotación = ventas / stock, días promedio de inventario, tasa de agotamiento).
+- Incluir pasos/cronograma y criterios de aceptación (qué salidas hacen que la tarea esté completa).
+- Añadir pruebas de calidad de datos: filas duplicadas, datos faltantes, valores irreales (precio negativo).
+- Incluir una sección “Experimentos” para simulación de descuentos (entrada: % descuento, salida: proyección de ventas/beneficio).
+- Añadir archivos reproducibles: requirements.txt, environment.yml y un notebook con ejemplo de análisis y gráficos.
+
+#### Sugerencias para el código
+
+- Reemplazar impresión de un Markdown "datasets.md" por una vista real de los datos (.csv/.xlsx). Usar pandas para cargar y mostrar head().
+- Añadir manejo de excepciones más claro, mensajes al usuario y validación de entrada.
+- Incluir opción para listar archivos de datasets disponibles y elegir uno.
+- Separar lógica en funciones (principal, mostrar archivo, mostrar datasets) para facilitar testing.
+- Añadir un archivo requirements.txt (pandas, openpyxl, xlrd, tabulate opcional).
+- Agregar tests unitarios para funciones de lectura y preview (pytest).
+- Registrar acciones importantes con logging en vez de prints para producciones.
