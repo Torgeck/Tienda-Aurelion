@@ -1,12 +1,14 @@
 from pathlib import Path
 import sys
 
+BASE_DIR = Path(__file__).parent
+
 # Declaracion de variables (usar Path para compatibilidad de rutas)
-path_problema = Path('./consola/tema_problema_solucion.md')
-path_pseudocodigo = Path('./consola/pseudocodigo.md')
-path_diagrama_flujo = Path('./consola/diagrama_flujo.md')
-path_datasets = Path('./consola/datasets.md')
-path_sugerencias = Path('./consola/sugerencias_mejoras.md')
+path_problema = BASE_DIR / 'consola' / 'tema_problema_solucion.md'
+path_pseudocodigo = BASE_DIR / 'consola' / 'pseudocodigo.md'
+path_diagrama_flujo = BASE_DIR / 'consola' / 'diagrama_flujo.md'
+path_datasets = BASE_DIR / 'consola' / 'datasets.md'
+path_sugerencias = BASE_DIR / 'consola' / 'sugerencias_mejoras.md'
 
 
 def leer_mostrar_archivo(ruta: Path) -> None:
