@@ -149,22 +149,17 @@ FIN
 
 ### Sugerencias y mejoras de Copilot
 
-#### Sugerencias para la documentación
+#### Aceptadas
+- Modularicé el script envolviendo el menú en una función main() y añadiendo el guard if __name__ == '__main__'.
+- Reemplacé rutas string por pathlib.Path para mayor portabilidad.
+- Mejoré la función leer_mostrar_archivo para aceptar Path, comprobar existencia y capturar excepciones de forma clara.
+- Normalicé la lectura de la entrada con .strip() y capturé KeyboardInterrupt para salida limpia.
 
-- Añadir un README con: objetivo del proyecto, instrucciones de instalación (requirements), cómo ejecutar, ejemplos de salida.
-- Documentar esquema de cada archivo de datos (nombres exactos, tipos, valores nulos esperados) — ya tienes parte de esto; conviértelo en una tabla por dataset y ejemplos de 3 filas.
-- Añadir KPIs y métricas a calcular (p. ej. productos top-N por cantidad/importe, rotación = ventas / stock, días promedio de inventario, tasa de agotamiento).
-- Incluir pasos/cronograma y criterios de aceptación (qué salidas hacen que la tarea esté completa).
-- Añadir pruebas de calidad de datos: filas duplicadas, datos faltantes, valores irreales (precio negativo).
-- Incluir una sección “Experimentos” para simulación de descuentos (entrada: % descuento, salida: proyección de ventas/beneficio).
-- Añadir archivos reproducibles: requirements.txt, environment.yml y un notebook con ejemplo de análisis y gráficos.
-
-#### Sugerencias para el código
-
-- Reemplazar impresión de un Markdown "datasets.md" por una vista real de los datos (.csv/.xlsx). Usar pandas para cargar y mostrar head().
-- Añadir manejo de excepciones más claro, mensajes al usuario y validación de entrada.
-- Incluir opción para listar archivos de datasets disponibles y elegir uno.
-- Separar lógica en funciones (principal, mostrar archivo, mostrar datasets) para facilitar testing.
-- Añadir un archivo requirements.txt (pandas, openpyxl, xlrd, tabulate opcional).
-- Agregar tests unitarios para funciones de lectura y preview (pytest).
-- Registrar acciones importantes con logging en vez de prints para producciones.
+#### Mejoras priorizadas no aplicadas
+- Añadir manejo y visualización de datasets reales (pandas).
+- Manejo detallado de errores y logs en vez de prints.
+- Internacionalización y codificación de mensajes (si se espera usar distintos locales).
+- Validación de entradas y menú más tolerante
+- Implementar tests de integración para lectura de archivos largos (performance)
+- Convertir rutas a partir de BASE_DIR = Path(__file__).parent para robustez cuando se ejecuta desde otro directorio.
+- Añadir tests con pytest (crear tests/test_proyecto.py) y correrlos.
