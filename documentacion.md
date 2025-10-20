@@ -103,6 +103,7 @@ Mostrar sugerencia de copilot
 
 ### Pseudocodigo
 
+```
 INICIO
 Definir rutas:
 path_problema, path_pseudocodigo, path_datasets, path_sugerencias
@@ -146,6 +147,13 @@ path_problema, path_pseudocodigo, path_datasets, path_sugerencias
         FIN MIENTRAS
 
 FIN
+```
+
+### Diagrama de flujo
+
+En el siguiente diagrama de flujo se muestra tanto la funcion principal como la funcion para leer y mostrar los archivos por consola
+
+![Diagrama de flujo](diagrama_flujo.svg)
 
 ### Sugerencias y mejoras de Copilot
 

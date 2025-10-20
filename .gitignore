@@ -1,3 +1,7 @@
 /.~lock.clientesxlsx#
+<<<<<<< HEAD
 /clean_data/*.xlsx
 /.venv
+=======
+/.$*
+>>>>>>> 0548204 (Ultimos cambios para sprint 1)
