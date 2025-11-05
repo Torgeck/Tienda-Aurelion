@@ -5,22 +5,10 @@ Esta sección presenta diversas visualizaciones que ayudan a entender mejor los 
 
 ## Tipos de Gráficos
 
-1. **Distribución de Cantidades**
-   ![Histograma de Cantidades](./img/histograma_cantidades.png)
-   ```
-   Distribución de Cantidades
-   ---------------------------
-   Frecuencia:
-   
-        |    *
-   100+ |  * * *
-        |  * * * *
-    50+ |* * * * *
-        |* * * * * *
-     0+ +----------+
-       0    5    10
-      Cantidad
-   ```
+1. **Distribuciones**
+   - Histogramas de cantidades vendidas
+   - Boxplots de precios unitarios
+   - Distribución de importes totales
 
 2. **Relaciones**
    - Scatter plots de precio vs importe
@@ -40,7 +28,11 @@ Esta sección presenta diversas visualizaciones que ayudan a entender mejor los 
 
 ## Graficos
 # boxplot
+
 ![Histograma de Cantidades](./img/output.png)
+
+
+
 ## Código Implementado
 ```python
 
