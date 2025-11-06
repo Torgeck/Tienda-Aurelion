@@ -29,7 +29,8 @@ Esta sección presenta diversas visualizaciones que ayudan a entender mejor los 
 ## Graficos
 # boxplot
 
-![Histograma de Cantidades](./img/output.png)
+![Graficos utiles](./img/output.png)
+![correlacion 2](./img/output2.png)
 
 
 
