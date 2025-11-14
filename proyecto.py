@@ -1,5 +1,5 @@
 from pathlib import Path
-from clean_data import data_cleaner
+from clean_data.data_cleaner import limpia_y_exporta
 import sys
 import re
 import pandas as pd
@@ -82,9 +82,9 @@ def main() -> int:
             print("4. Mostrar info acerca de los datasets")
             print("5. Sugerencias y mejoras con Copilot")
             print("6. Estadísticas descriptivas")
-            print("7. Correlaciones")
-            print("8. Valores extremos")
-            print("9. Gráficos")
+            print("7. Valores extremos")
+            print("8. Gráficos")
+            print("9. Correlaciones")
             print("10. Interpretación de resultados")
             print("11. Limpieza y preparación de la base de datos")
             print("12. Salir")
@@ -111,20 +111,20 @@ def main() -> int:
                     print("\n" + "*" * 5 + " Estadísticas descriptivas y limpieza" + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_estadisticas)
                 case "7":
-                    print("\n" + "*" * 5 + " Correlaciones " + "*" * 5 + "\n")
-                    leer_mostrar_archivo(path_correlaciones)
-                case "8":
                     print("\n" + "*" * 5 + " Valores extremos " + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_valores_extremos)
-                case "9":
+                case "8":
                     print("\n" + "*" * 5 + " Gráficos " + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_graficos)
+                case "9":
+                    print("\n" + "*" * 5 + " Correlaciones " + "*" * 5 + "\n")
+                    leer_mostrar_archivo(path_correlaciones)
                 case "10":
                     print("\n" + "*" * 5 + " Interpretación de resultados " + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_interpretacion)
                 case "11":
-                    print("\n" + "*" * 5 + " Limpieza y preparación de datos " + "*" * 5 + "\n")
-                    data_cleaner
+                    print("\n" + "*" * 5 + " Limpieza y exportacion de .csv " + "*" * 5 + "\n")
+                    limpia_y_exporta()
                 case "12":
                     print("\nGracias por usar el menú interactivo. ¡Adiós!")
                     salir = True

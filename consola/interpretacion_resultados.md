@@ -40,8 +40,7 @@ Estas validaciones dan confianza de que los datos reflejan la realidad operativa
 | **Columnas** | Redundancias, sufijos _x/_y | Nombres claros y únicos |
 | **Categorías** | Inconsistentes | Automáticamente clasificadas |
 | **Anomalías** | Sin identificar | Detectadas y eliminadas |
-| **Validación** | Intuitiva | Basada en correlaciones numéricas |
-| **Usabilidad** | Complicada | Lista para análisis de negocio |
+
 
 ### Lecciones Aprendidas
 
