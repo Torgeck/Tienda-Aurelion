@@ -1,4 +1,5 @@
 from pathlib import Path
+from clean_data import data_cleaner
 import sys
 import re
 import pandas as pd
@@ -123,7 +124,7 @@ def main() -> int:
                     leer_mostrar_archivo(path_interpretacion)
                 case "11":
                     print("\n" + "*" * 5 + " Limpieza y preparación de datos " + "*" * 5 + "\n")
-                    leer_mostrar_archivo(path_limpieza)
+                    data_cleaner
                 case "12":
                     print("\nGracias por usar el menú interactivo. ¡Adiós!")
                     salir = True
