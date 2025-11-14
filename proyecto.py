@@ -107,7 +107,7 @@ def main() -> int:
                     print("\n" + "*" * 5 + " Sugerencias y mejoras con Copilot " + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_sugerencias)
                 case "6":
-                    print("\n" + "*" * 5 + " Estadísticas descriptivas " + "*" * 5 + "\n")
+                    print("\n" + "*" * 5 + " Estadísticas descriptivas y limpieza" + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_estadisticas)
                 case "7":
                     print("\n" + "*" * 5 + " Correlaciones " + "*" * 5 + "\n")
@@ -122,7 +122,7 @@ def main() -> int:
                     print("\n" + "*" * 5 + " Interpretación de resultados " + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_interpretacion)
                 case "11":
-                    print("\n" + "*" * 5 + " Limpieza y preparación de datos " + "*" * 5 + "\n")
+                    print("\n" + "*" * 5 + " Limpieza y exportacion de dataset limpio" + "*" * 5 + "\n")
                     leer_mostrar_archivo(path_limpieza)
                 case "12":
                     print("\nGracias por usar el menú interactivo. ¡Adiós!")

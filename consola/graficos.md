@@ -1,37 +1,30 @@
-# Visualizaciones y Gráficos
+### 9. Análisis de Distribuciones
 
-## Descripción
-Esta sección presenta diversas visualizaciones que ayudan a entender mejor los patrones y tendencias en los datos de la Tienda Aurelion.
+#### Objetivo
+Entender la forma y características de la distribución de variables clave.
 
-## Tipos de Gráficos
+#### Visualizaciones Realizadas
 
-1. **Distribuciones**
-   - Histogramas de cantidades vendidas
-   - Boxplots de precios unitarios
-   - Distribución de importes totales
+![Graficos Analisis](./img/graficos_analisis.png)
 
-2. **Relaciones**
-   - Scatter plots de precio vs importe
-   - Gráficos de barras por categoría
-   - Tendencias temporales de ventas
 
-3. **Categorías**
-   - Proporción de ventas por categoría
-   - Distribución de precios por tipo de producto
-   - Volumen de ventas por categoría
+**1. Histograma de Cantidades**
+- Muestra frecuencia de cantidades vendidas
+- Identifica si la mayoría de transacciones son de pocos productos o muchos
 
-## Interpretación
-- Los histogramas muestran la frecuencia de valores
-- Los boxplots identifican outliers y distribución
-- Los scatter plots revelan relaciones entre variables
-- Los gráficos de barras comparan categorías
+**2. Scatter Plot: Precio vs Total (coloreado por Categoría)**
+- Verifica la relación visual entre precio y total
+- Permite identificar si categorías tienen patrones diferentes
+- Ayuda a detectar grupos o clustering
 
-## Graficos
-# boxplot
+**3. Boxplot de Totales por Categoría**
+- Compara distribuciones entre Alimentos y Limpieza
+- Identifica si una categoría tiene transacciones más altas/bajas
 
-![Graficos utiles](./img/output.png)
-![correlacion 2](./img/output2.png)
-
+#### Hallazgos Principales
+- **Cantidad**: Distribución sesgada (mayoría de transacciones pequeñas)
+- **Precio vs Total**: Relación lineal clara y positiva
+- **Por Categoría**: Posibles diferencias en montos por tipo de producto
 
 
 ## Código Implementado

@@ -1,61 +1,42 @@
-# Análisis de Correlaciones
+### 8. Análisis de Correlaciones
 
-## Descripción
-Este análisis examina las relaciones entre diferentes variables numéricas en nuestro conjunto de datos, ayudando a identificar patrones y dependencias importantes.
+#### Objetivo
+Identificar relaciones lineales entre variables numéricas para entender cómo una variable cambia respecto a otra.
 
-## Variables Analizadas
-1. **Ventas y Cantidades**
-   - Correlación entre precio unitario y cantidad vendida
-   - Impacto del precio en el volumen de ventas
+#### Método: Coeficiente de Correlación de Pearson
 
-2. **Patrones Temporales**
-   - Correlaciones con fechas y estacionalidad
-   - Tendencias de ventas por período
+Mide la relación lineal entre dos variables:
+- **Rango**: -1 a 1
+- **Cercano a 1**: Correlación positiva fuerte (ambas aumentan juntas)
+- **Cercano a -1**: Correlación negativa fuerte (una aumenta, otra disminuye)
+- **Cercano a 0**: Sin correlación lineal
 
-3. **Categorías y Precios**
-   - Relación entre categorías y precios unitarios
-   - Variación de precios por tipo de producto
+#### Visualización: Matriz de Correlación
 
-## Interpretación de Resultados
-- Coeficientes positivos indican relaciones directas
-- Coeficientes negativos indican relaciones inversas
-- Valores cercanos a 0 indican baja correlación
-- Valores cercanos a 1 o -1 indican correlación fuerte
-
-## Visualizaciones
-El análisis incluye:
-- Matrices de correlación con mapa de calor
-
-
-
-## Código Implementado
 ```python
-name_list = ["clientes", "detalle_ventas", "productos", "ventas"]
+numericas = df.select_dtypes(include=[np.number])
+corr = numericas.corr()
 
-for i, tabla in enumerate(df_list):
-    print(f"\n=========== CORRELACIONES PARA {name_list[i].upper()} ===========")
-    
-    numericas = tabla.select_dtypes(include=[np.number])
-    
-    if not numericas.empty:
-        corr = numericas.corr()
-        print(corr)
-
-        fig, ax = plt.subplots(figsize=(10, 8))
-        sns.heatmap(corr, annot=True, cmap='coolwarm', center=0, ax=ax)
-        ax.set_title(f'Matriz de Correlación - {name_list[i]}')
-        plt.show()
-        
-        print("\nCorrelaciones más significativas:")
-        corr_unstack = corr.unstack()
-        corr_sorted = corr_unstack[abs(corr_unstack) > 0.5]
-        corr_sorted = corr_sorted[corr_sorted != 1.0] #elimino autocorrelaciones
-        if not corr_sorted.empty:
-            print(corr_sorted.sort_values(ascending=False))
-        else:
-            print("No se encontraron correlaciones significativas (>0.5)")
-    else:
-        print(f"No hay variables numéricas en {name_list[i]} para calcular correlaciones")
-    
-    print("\n" + "="*50)
+sns.heatmap(corr, annot=True, cmap='coolwarm', center=0)
+plt.title('Matriz de Correlación')
+plt.show()
 ```
+
+![Heatmap Matriz Correlaciones](./img/heatmap_correlacion.png)
+
+
+#### Interpretación del Mapa de Calor
+- **Colores cálidos (rojo)**: Correlación positiva
+- **Colores fríos (azul)**: Correlación negativa
+- **Valores en celdas**: Coeficiente de correlación exacto
+
+#### Correlaciones Significativas Identificadas
+
+Se filtraron pares con correlación absoluta > 0.5:
+- **Precio ↔ Total**: Correlación alta (se espera que a mayor precio, mayor total)
+- **Cantidad ↔ Total**: Correlación moderada
+
+#### Justificación
+Las correlaciones ayudan a:
+- Validar relaciones lógicas entre variables
+- Identificar variables redundantes

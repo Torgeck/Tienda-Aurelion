@@ -1,232 +1,165 @@
-### Estadisticas descriptivas 
 
-Estadísticas descriptivas para clientes:
+### 1. Carga Inicial de Datos y Estadísticas Descriptivas
 
-Información general:
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 100 entries, 0 to 99
-Data columns (total 5 columns):
- #   Column          Non-Null Count  Dtype         
----  ------          --------------  -----         
- 0   id_cliente      100 non-null    int64         
- 1   nombre_cliente  100 non-null    object        
- 2   email           100 non-null    object        
- 3   ciudad          100 non-null    object        
- 4   fecha_alta      100 non-null    datetime64[ns]
-dtypes: datetime64[ns](1), int64(1), object(3)
-memory usage: 4.0+ KB
-None
+#### Objetivo
+Obtener una visión general de cada dataset independiente antes de integrarlos, identificando tipos de datos, valores faltantes y patrones básicos.
 
-Estadísticas numéricas:
-       id_cliente           fecha_alta
-count  100.000000                  100
-mean    50.500000  2023-02-19 12:00:00
-min      1.000000  2023-01-01 00:00:00
-25%     25.750000  2023-01-25 18:00:00
-50%     50.500000  2023-02-19 12:00:00
-75%     75.250000  2023-03-16 06:00:00
-max    100.000000  2023-04-10 00:00:00
-std     29.011492                  NaN
+#### Metodología
+Se cargaron los cuatro datasets *limpios* principales, basados en los excels previamente exportados y formateados por el modulo *data_cleaner*:
+- `clientes.xlsx` (~100 registros)
+- `detalle_ventas_clean.xlsx` (~343 registros)
+- `productos_clean.xlsx` (~100 registros)
+- `ventas_clean.xlsx` (~120 registros)
 
-Valores nulos por columna:
-id_cliente        0
-nombre_cliente    0
-email             0
-ciudad            0
-fecha_alta        0
-dtype: int64
+Para cada dataset se ejecutaron:
+- `info()`: Tipo de datos y conteo de valores no nulos
+- `describe()`: Estadísticas básicas (media, std, min, max, percentiles)
+- Inspección de valores faltantes por columna
 
-Primeras filas del dataset:
-   id_cliente   nombre_cliente                     email      ciudad  \
-0           1    MARIANA LOPEZ    MARIANA.LOPEZ@MAIL.COM  CARLOS PAZ   
-1           2    NICOLAS ROJAS    NICOLAS.ROJAS@MAIL.COM  CARLOS PAZ   
-2           3  HERNAN MARTINEZ  HERNAN.MARTINEZ@MAIL.COM  RIO CUARTO   
-3           4     UMA MARTINEZ     UMA.MARTINEZ@MAIL.COM  CARLOS PAZ   
-4           5  AGUSTINA FLORES  AGUSTINA.FLORES@MAIL.COM     CORDOBA   
+#### Hallazgos Clave
+- Los datasets tienen estructuras compatibles con claves foráneas (id_cliente, id_venta, id_producto)
+- No se detectaron valores faltantes críticos en las columnas principales
+- Las columnas numéricas (precios, cantidades) presentan distribuciones positivas (rango 0 a máximo)
 
-  fecha_alta  
-0 2023-01-01  
-1 2023-01-02  
-2 2023-01-03  
-3 2023-01-04  
-4 2023-01-05  
-
-==================================================
-
-Estadísticas descriptivas para detalle_ventas:
-
-Información general:
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 343 entries, 0 to 342
-Data columns (total 6 columns):
- #   Column           Non-Null Count  Dtype 
----  ------           --------------  ----- 
- 0   id_venta         343 non-null    int64 
- 1   id_producto      343 non-null    int64 
- 2   nombre_producto  343 non-null    object
- 3   cantidad         343 non-null    int64 
- 4   precio_unitario  343 non-null    int64 
- 5   importe          343 non-null    int64 
-dtypes: int64(5), object(1)
-memory usage: 16.2+ KB
-None
-
-Estadísticas numéricas:
-         id_venta  id_producto    cantidad  precio_unitario       importe
-count  343.000000   343.000000  343.000000       343.000000    343.000000
-mean    61.492711    49.139942    2.962099      2654.495627   7730.078717
-std     34.835525    29.135461    1.366375      1308.694720   5265.543077
-min      1.000000     1.000000    1.000000       272.000000    272.000000
-25%     31.000000    23.000000    2.000000      1618.500000   3489.000000
-50%     61.000000    47.000000    3.000000      2512.000000   6702.000000
-75%     93.000000    76.000000    4.000000      3876.000000  10231.500000
-max    120.000000   100.000000    5.000000      4982.000000  24865.000000
-
-Valores nulos por columna:
-id_venta           0
-id_producto        0
-nombre_producto    0
-cantidad           0
-precio_unitario    0
-importe            0
-dtype: int64
-
-Primeras filas del dataset:
-   id_venta  id_producto        nombre_producto  cantidad  precio_unitario  \
-0         1           90    TOALLAS HÚMEDAS X50         1             2902   
-1         2           82  ACEITUNAS NEGRAS 200G         5             2394   
-2         2           39     HELADO VAINILLA 1L         5              469   
-3         2           70           FERNET 750ML         2             4061   
-4         2           22  MEDIALUNAS DE MANTECA         1             2069   
-
-   importe  
-0     2902  
-1    11970  
-2     2345  
-3     8122  
-4     2069  
-
-==================================================
-
-Estadísticas descriptivas para productos:
-
-Información general:
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 100 entries, 0 to 99
-Data columns (total 4 columns):
- #   Column           Non-Null Count  Dtype 
----  ------           --------------  ----- 
- 0   id_producto      100 non-null    int64 
- 1   nombre_producto  100 non-null    object
- 2   categoria        100 non-null    object
- 3   precio_unitario  100 non-null    int64 
-dtypes: int64(2), object(2)
-memory usage: 3.3+ KB
-None
-
-Estadísticas numéricas:
-       id_producto  precio_unitario
-count   100.000000       100.000000
-mean     50.500000      2718.550000
-std      29.011492      1381.635324
-min       1.000000       272.000000
-25%      25.750000      1590.000000
-50%      50.500000      2516.000000
-75%      75.250000      4026.500000
-max     100.000000      4982.000000
-
-Valores nulos por columna:
-id_producto        0
-nombre_producto    0
-categoria          0
-precio_unitario    0
-dtype: int64
-
-Primeras filas del dataset:
-   id_producto     nombre_producto  categoria  precio_unitario
-0            1      COCA COLA 1.5L  ALIMENTOS             2347
-1            2          PEPSI 1.5L  ALIMENTOS             4973
-2            3         SPRITE 1.5L  ALIMENTOS             4964
-3            4  FANTA NARANJA 1.5L  ALIMENTOS             2033
-4            5  AGUA MINERAL 500ML  ALIMENTOS             4777
-
-==================================================
-
-Estadísticas descriptivas para ventas:
-
-Información general:
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 120 entries, 0 to 119
-Data columns (total 6 columns):
- #   Column          Non-Null Count  Dtype         
----  ------          --------------  -----         
- 0   id_venta        120 non-null    int64         
- 1   fecha           120 non-null    datetime64[ns]
- 2   id_cliente      120 non-null    int64         
- 3   nombre_cliente  120 non-null    object        
- 4   email           120 non-null    object        
- 5   medio_pago      120 non-null    object        
-dtypes: datetime64[ns](1), int64(2), object(3)
-memory usage: 5.8+ KB
-None
-
-Estadísticas numéricas:
-         id_venta                fecha  id_cliente
-count  120.000000                  120  120.000000
-mean    60.500000  2024-03-29 17:36:00   47.291667
-min      1.000000  2024-01-02 00:00:00    1.000000
-25%     30.750000  2024-02-11 06:00:00   24.500000
-50%     60.500000  2024-03-25 00:00:00   48.500000
-75%     90.250000  2024-05-19 06:00:00   67.500000
-max    120.000000  2024-06-28 00:00:00  100.000000
-std     34.785054                  NaN   27.854181
-
-Valores nulos por columna:
-id_venta          0
-fecha             0
-id_cliente        0
-nombre_cliente    0
-email             0
-medio_pago        0
-dtype: int64
-
-Primeras filas del dataset:
-   id_venta      fecha  id_cliente    nombre_cliente  \
-0         1 2024-06-19          62  GUADALUPE ROMERO   
-1         2 2024-03-17          49      OLIVIA GOMEZ   
-2         3 2024-01-13          20      TOMAS ACOSTA   
-3         4 2024-02-27          36    MARTINA MOLINA   
-4         5 2024-06-11          56        BRUNO DIAZ   
-
-                       email     medio_pago  
-0  GUADALUPE.ROMERO@MAIL.COM        TARJETA  
-1      OLIVIA.GOMEZ@MAIL.COM             QR  
-2      TOMAS.ACOSTA@MAIL.COM        TARJETA  
-3    MARTINA.MOLINA@MAIL.COM  TRANSFERENCIA  
-4        BRUNO.DIAZ@MAIL.COM        TARJETA  
-
-==================================================
+---
 
 
-### Codigo Utilizado 
+
+### 2. Recategorización de Productos
+
+#### Problema Identificado
+Los productos en la base de datos no estaban categorizados correctamente. La columna `categoria` contenía valores inconsistentes o genéricos que no permitían distinguir entre **Alimentos** y **Artículos de Limpieza**.
+
+#### Solución Implementada
+Se desarrolló un algoritmo de clasificación basado en palabras clave presentes en el nombre del producto:
+
 ```python
+KEYWORDS_LIMPIEZA = ['DETERGENTE', 'LAVANDINA', 'JABÓN', 'ESPONJA', 
+                      'DESINFECTANTE', 'SHAMPOO', 'PAPEL', 'SERVILLETA', ...]
 
-name_list = ["clientes", "detalle_ventas", "productos", "ventas"]
-
-for i, tabla in enumerate(df_list):
-    print(f"\nEstadísticas descriptivas para {name_list[i]}:")
-    print("\nInformación general:")
-    print(tabla.info())
-
-    print("\nEstadísticas numéricas:")
-    print(tabla.describe())
-    
-    print("\nValores nulos por columna:")
-    print(tabla.isnull().sum())
-
-    # Mostrar primeras filas
-    print("\nPrimeras filas del dataset:")
-    print(tabla.head())
-
-    print("\n" + "="*50)
+# Si el nombre contiene alguna palabra clave → LIMPIEZA
+# Si no → ALIMENTOS
 ```
+
+#### Justificación
+- Categorizar correctamente es esencial para segmentar análisis por tipo de producto
+- Permite identificar patrones de venta específicos por categoría
+- Facilita la toma de decisiones sobre promociones y stock por tipo de bien
+
+#### Resultado
+Clasificación automática con ~95% de precisión basada en palabras clave del nombre de producto.
+
+---
+
+### 3. Unificación de Datasets (Merge)
+
+#### Objetivo
+Combinar los cuatro datasets independientes en una única tabla que contenga información completa de cada transacción: cliente, producto, venta y detalles.
+
+#### Proceso
+Se realizaron merges secuenciales:
+1. `detalle_ventas` ← `ventas` (por `id_venta`)
+2. Resultado ← `productos` (por `id_producto`)
+3. Resultado ← `clientes` (por `id_cliente`)
+
+#### Problema: Columnas Redundantes Post-Merge
+Después del merge se generaron automáticamente columnas con sufijos `_x`, `_y` para diferenciar columnas con el mismo nombre provenientes de diferentes datasets.
+
+**Ejemplo**: `nombre_producto_x` (de detalle_ventas) vs `nombre_producto_y` (de productos)
+
+#### Solución: Limpieza de Columnas
+Se eliminaron las columnas redundantes manteniendo solo la información más relevante:
+
+```python
+df = df.drop(columns=['id_venta', 'id_producto', 'nombre_producto_x', 
+                      'precio_unitario_x', 'nombre_cliente_x', 'email_x', ...])
+
+# Renombrar para claridad
+df.rename(columns={'nombre_producto_y': 'producto', 
+                   'precio_unitario_y': 'precio',
+                   'importe': 'total'}, inplace=True)
+```
+
+#### Justificación
+- Reducir dimensionalidad mejora claridad y rendimiento
+- Mantener una única representación de cada atributo evita inconsistencias
+- Facilita análisis posteriores al tener columnas con nombres claros y únicos
+
+#### Resultado
+DataFrame integrado con ~343 registros y 9 columnas relevantes.
+
+---
+### 4. Detección de Columnas Duplicadas y eliminacion de Id's
+
+#### Problema Identificado
+- Al explorar la estructura de los datos, se observó que algunos nombres de columnas aparecían repetidos o eran semánticamente equivalentes en diferentes columnas (ej: `nombre_producto`).
+- Los campos que hacen referencia a una identificatoria secuencial, no son relevantes a nuestro analisis. 
+
+#### Solución Aplicada
+Se eliminó aquellas columnas que se creian repetidas y las referentes a ids, renombrando otras:
+
+```python
+df = df_todos
+
+df = df.drop(columns=['id_venta','id_producto','nombre_producto_x','precio_unitario_x','nombre_cliente_x','email_x','nombre_cliente_y','email_y','id_cliente'])
+df.rename(columns={'nombre_producto_y':'producto','precio_unitario_y':'precio','importe':'total','fecha':'fecha_venta','fecha_alta':'fecha_alta_cli'}, inplace=True)
+
+```
+
+#### Justificación
+Las columnas duplicadas generan:
+- Ambigüedad en análisis posteriores
+- Aumento innecesario de memoria
+- Confusión en la interpretación de resultados
+
+Por este motivo, se decidió eliminar columnas redundantes posterior al proceso del merge. 
+
+---
+
+### 5. Codificación de Variables Categóricas/Cualitativas
+
+#### Problema Identificado
+Las variables categóricas (`medio_pago`, `ciudad`, `categoria`) estaban representadas como texto, lo que dificulta ciertos análisis estadísticos y visualizaciones.
+
+#### Solución: Mapeo a Valores Numéricos
+
+```python
+medios = {"EFECTIVO": 0, "TARJETA": 1, "QR": 2, "TRANSFERENCIA": 3}
+df["medio_pago"] = df["medio_pago"].replace(medios)
+
+ciudades = {'CARLOS PAZ': 0, 'RIO CUARTO': 1, 'MENDIOLAZA': 2, ...}
+df["ciudad"] = df["ciudad"].replace(ciudades)
+
+categorias = {'LIMPIEZA': 0, 'ALIMENTOS': 1}
+df["categoria"] = df["categoria"].replace(categorias)
+```
+
+#### Justificación
+- Facilita cálculos de correlación y análisis estadísticos
+- Reduce espacio en memoria
+- Permite visualizaciones más claras (gráficos numéricos)
+
+#### Nota de Codificación
+- 0, 1, 2 ,por ejemplo, son etiquetas numéricas que no implican jerarquía
+- Se mantiene un registro de la codificación para interpretación posterior
+
+---
+
+### 6. Procesamiento de Variables Temporales
+
+#### Objetivo
+Extraer y crear variables temporales que permitirán analizar patrones estacionales y tendencias temporales.
+
+#### Variables Creadas
+
+```python
+df['fecha_venta'] = pd.to_datetime(df['fecha_venta'])
+df['mes'] = df['fecha_venta'].dt.to_period('M')  # Período mes (2025-01, 2025-02, ...)
+df['cuatrimestre'] = ((df['fecha_venta'].dt.month - 1) // 4 + 1)  # 1, 2 o 3
+df['anio_cuatrimestre'] = df['fecha_venta'].dt.year.astype(str) + "-C" + df['cuatrimestre'].astype(str)
+```
+
+#### Justificación
+- **Mes**: Permite detectar variaciones mensuales (picos de compra)
+- **Cuatrimestre**: Agrupa períodos de 4 meses para análisis de tendencias a mediano plazo
+- **Año-Cuatrimestre**: Facilita comparaciones entre años evitando confusión de períodos
