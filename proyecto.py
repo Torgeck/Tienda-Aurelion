@@ -32,7 +32,7 @@ path_metricas =  BASE_DIR / 'consola' / 'metricas_calculadas_modelo.md'
 path_modelo_implementado = BASE_DIR / 'consola' / 'modelo_utilizado.md'
 path_train_test = BASE_DIR / 'consola' / 'train_test_modelo.md'
 path_metricas_calculadas = BASE_DIR / 'consola' / 'metricas_calculadas_modelo.md'
-path_resultados = BASE_DIR / 'consola' / 'resultados_modelos.md'
+path_resultados = BASE_DIR / 'consola' / 'resultados_modelo.md'
 
 def mostrar_imagen(ruta_imagen: Path) -> None:
     """Muestra una imagen en una ventana emergente."""
