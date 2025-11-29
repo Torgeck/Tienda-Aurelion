@@ -32,3 +32,5 @@ Esta visualización es crucial para entender cuál de las 5 variables tiene mayo
 - Prioridades para recopilación y mantenimiento de datos
 
 ---
+
+![Resultados obtenidos](./img/resultados.png)

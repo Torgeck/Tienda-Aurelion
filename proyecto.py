@@ -25,7 +25,14 @@ path_valores_extremos = BASE_DIR / 'consola' / 'valores_extremos.md'
 path_graficos = BASE_DIR / 'consola' / 'graficos.md'
 path_interpretacion = BASE_DIR / 'consola' / 'interpretacion_resultados.md'
 path_limpieza = BASE_DIR / 'clean_data' / 'data_cleaner.py'
-
+path_objetivo =  BASE_DIR / 'consola' / 'objetivo_modelo.md'
+path_algoritmo =  BASE_DIR / 'consola' / 'algoritmo_modelo.md'
+path_entradas_salidas = BASE_DIR / 'consola' / 'entradas_salidas_modelo.md'
+path_metricas =  BASE_DIR / 'consola' / 'metricas_modelo.md'
+path_modelo_implementado = BASE_DIR / 'consola' / 'modelo_utilizado.md'
+path_train_test = BASE_DIR / 'consola' / 'train_test_modelo.md'
+path_metricas_calculadas = BASE_DIR / 'consola' / 'metricas_calculadas_modelo.md'
+path_resultados = BASE_DIR / 'consola' / 'resultados_modelo.md'
 
 def mostrar_imagen(ruta_imagen: Path) -> None:
     """Muestra una imagen en una ventana emergente."""
@@ -71,6 +78,57 @@ def leer_mostrar_archivo(ruta: Path) -> None:
     except Exception as e:
         print(f"Ocurrió un error al leer el archivo {ruta}: {e}")
 
+def sprint_3_modelo_ml():
+    salir = False
+    while not salir:
+        print("\n" + "=" * 50)
+        print("|       MENU INTERACTIVO SPRINT 3      |")
+        print("=" * 50)
+        print("1. Mostrar objetivo")
+        print("2. Mostrar algoritmo elegido y justificacion")
+        print("3. Mostrar entradas y salidas")
+        print("4. Mostrar metricas de evaluacion")
+        print("5. Mostrar modelo de ML implementado")
+        print("6. Mostrar division train/test y entrenamiento")
+        print("7. Mostrar predicciones y metricas calculadas")
+        print("8. Mostrar resultados obtenidos")
+        print("9. Regresar al menu principal")
+        
+        print("=" * 50)
+        opcion = input("\nSeleccione una opcion: ").strip()
+
+        match opcion:
+            case "1":
+                print("\n" + "*" * 5 + " Opcion 1 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_objetivo)
+            case "2":
+                print("\n" + "*" * 5 + " Opcion 2 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_algoritmo)
+            case "3":
+                print("\n" + "*" * 5 + " Opcion 3 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_entradas_salidas)
+            case "4":
+                print("\n" + "*" * 5 + " Opcion 4 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_metricas)
+            case "5":
+                print("\n" + "*" * 5 + " Opcion 5 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_modelo_implementado)
+            case "6":
+                print("\n" + "*" * 5 + " Opcion 6 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_train_test)
+            case "7":
+                print("\n" + "*" * 5 + " Opcion 7 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_metricas_calculadas)
+            case "8":
+                print("\n" + "*" * 5 + " Opcion 8 seleccionada " + "*" * 5 + "\n")
+                leer_mostrar_archivo(path_resultados)
+            case "9":
+                print("\nRegresando al menú principal...")
+                salir = True
+            case _:
+                if opcion == "":
+                    continue
+                print("\nOpcion no valida. Por favor, ingrese 1 o 2")
 
 def main() -> int:
     """Menú interactivo principal."""
@@ -91,7 +149,7 @@ def main() -> int:
             print("9. Correlaciones")
             print("10. Interpretación de resultados")
             print("11. Limpieza y preparación de la base de datos")
-            print("12. Entrenamiento del modelo de clasificación (Sprint 3)")
+            print("12. Modelo de ML")
             print("13. Salir")
             print("=" * 50)
             opcion = input("\nSeleccione una opcion: ").strip()
@@ -131,7 +189,7 @@ def main() -> int:
                     print("\n" + "*" * 5 + " Limpieza y exportacion de .csv " + "*" * 5 + "\n")
                     limpia_y_exporta()
                 case "12":
-                    entrenar_modelo_clasificacion()
+                    sprint_3_modelo_ml()
                 case "13":
                     print("\nGracias por usar el menú interactivo. ¡Adiós!")
                     salir = True

@@ -41,3 +41,5 @@ Frecuente        4        54
 - **Especificidad**: 9% - Probabilidad de identificar un cliente no frecuente (muy bajo)
 - **Precisión (Frecuente)**: 84% - Si el modelo predice frecuente, hay 84% probabilidad de ser correcto
 - **Precisión (No Frecuente)**: 20% - Si el modelo predice no frecuente, hay solo 20% probabilidad de ser correcto
+
+![Matriz de Confusion](./img/confusion.png)
