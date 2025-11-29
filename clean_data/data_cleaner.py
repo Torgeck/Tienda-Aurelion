@@ -68,6 +68,26 @@ def limpia_y_exporta():
     df_venta_detalle = df_detventas.merge(df_ventas, on='id_venta', how='left').merge(df_productos, on='id_producto', how='left')
     df_todos = df_venta_detalle.merge(df_clientes, on='id_cliente' , how='left')
 
+    # Transformacion de datos - Aplicar una sola vez a df_todos
+    medios = {"EFECTIVO": 0 , "TARJETA": 1, "QR":2, "TRANSFERENCIA": 3}
+    df_todos["medio_pago"] = df_todos["medio_pago"].replace(medios).infer_objects(copy=False)
+    
+    categorias = {'LIMPIEZA':0, 'ALIMENTOS':1}
+    df_todos["categoria"] = df_todos["categoria"].replace(categorias).infer_objects(copy=False)
+
+    ciudades = {'CARLOS PAZ':0, 'RIO CUARTO':1, 'MENDIOLAZA':2, 'ALTA GRACIA':3, 'VILLA MARIA': 4,'CORDOBA': 5}
+    df_todos["ciudad"] = df_todos["ciudad"].replace(ciudades).infer_objects(copy=False)
+
+    # Crear dataset_train.csv ANTES de eliminar columnas
+    # Seleccionar columnas necesarias para training
+    df_train = df_todos.copy()
+    df_train = df_train.drop(columns=['nombre_producto_x','precio_unitario_x','email_x','nombre_cliente_y'])
+    df_train.rename(columns={'nombre_producto_y':'producto','precio_unitario_y':'precio','importe':'total','fecha':'fecha_venta','fecha_alta':'fecha_alta_cli','nombre_cliente_x':'nombre_cliente','email_y':'email'}, inplace=True)
+    
+    # Exportar dataset_train.csv
+    path_train = "./clean_data/dataset_train.csv"
+    df_train.to_csv(path_train, sep='|', index=False)
+
     # Limpieza de columnas con datos irrelevantes
     df = df_todos
     df = df.drop(columns=['id_venta','id_producto','nombre_producto_x','precio_unitario_x','nombre_cliente_x','email_x','nombre_cliente_y','email_y','id_cliente'])
@@ -75,16 +95,6 @@ def limpia_y_exporta():
 
     # Reorganizacion de columnas
     df = df[['producto','categoria','cantidad','precio','total','medio_pago','fecha_venta','ciudad','fecha_alta_cli']]
-
-    # Transformacion de datos
-    medios = {"EFECTIVO": 0 , "TARJETA": 1, "QR":2, "TRANSFERENCIA": 3}
-    df["medio_pago"] = df["medio_pago"].replace(medios).infer_objects(copy=False)
-
-    ciudades = {'CARLOS PAZ':0, 'RIO CUARTO':1, 'MENDIOLAZA':2, 'ALTA GRACIA':3, 'VILLA MARIA': 4,'CORDOBA': 5}
-    df["ciudad"] = df["ciudad"].replace(ciudades).infer_objects(copy=False)
-
-    categorias = {'LIMPIEZA':0, 'ALIMENTOS':1}
-    df["categoria"] = df["categoria"].replace(categorias).infer_objects(copy=False)
 
     # Procesamiento de fechas
     df['fecha_venta'] = pd.to_datetime(df['fecha_venta'])
@@ -105,9 +115,10 @@ def limpia_y_exporta():
     # Exportacion del dataframe como .csv
     df.to_csv(path_salida, sep='|', index=False)
 
-    if os.path.exists(path_salida):
+    if os.path.exists(path_salida) and os.path.exists(path_train):
         print("|================| Archivo dataset_final.csv creado con exito |===================|")
+        print("|================| Archivo dataset_train.csv creado con exito |===================|")
         return True
     else:
-        print("Error al crear dataset_final.csv")
+        print("Error al crear los archivos CSV")
         return False

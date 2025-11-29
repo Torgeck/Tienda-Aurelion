@@ -3,9 +3,13 @@ from clean_data.data_cleaner import limpia_y_exporta
 import sys
 import re
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image  # Para mostrar imágenes en ventanas emergentes
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
 
 BASE_DIR = Path(__file__).parent
 
@@ -87,7 +91,8 @@ def main() -> int:
             print("9. Correlaciones")
             print("10. Interpretación de resultados")
             print("11. Limpieza y preparación de la base de datos")
-            print("12. Salir")
+            print("12. Entrenamiento del modelo de clasificación (Sprint 3)")
+            print("13. Salir")
             print("=" * 50)
             opcion = input("\nSeleccione una opcion: ").strip()
 
@@ -126,13 +131,15 @@ def main() -> int:
                     print("\n" + "*" * 5 + " Limpieza y exportacion de .csv " + "*" * 5 + "\n")
                     limpia_y_exporta()
                 case "12":
+                    entrenar_modelo_clasificacion()
+                case "13":
                     print("\nGracias por usar el menú interactivo. ¡Adiós!")
                     salir = True
                 case _:
                     if opcion == "":
                         # Si el usuario presionó Enter sin ingresar, mostramos el menú de nuevo
                         continue
-                    print("\nOpcion no valida. Por favor, ingrese un número del 1 al 12")
+                    print("\nOpcion no valida. Por favor, ingrese un número del 1 al 13")
     except KeyboardInterrupt:
         print("\nInterrupción por teclado. Saliendo...")
         return 0
