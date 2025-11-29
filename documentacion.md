@@ -536,3 +536,313 @@ El dataset procesado proporciona una base sólida para identificar productos má
 
 
 
+
+---
+
+## Modelo ML Implementado - Sprint 3
+
+### Objetivo y Justificación del Algoritmo (DecisionTreeClassifier)
+
+#### **Objetivo de la Clasificación**
+Predecir si un cliente es un **'Cliente Frecuente'** (1) o **'No Frecuente'** (0), basándose en múltiples variables de comportamiento de compra: método de pago, precio, categoría de productos, ciudad de residencia y cantidad de productos comprados.
+
+#### **Justificación del Algoritmo: Árbol de Decisión**
+
+Se eligió **DecisionTreeClassifier** por las siguientes razones:
+
+1. **Interpretabilidad**: Los árboles de decisión son altamente interpretables. Cada rama representa una regla clara que puede ser comprendida fácilmente por stakeholders no técnicos.
+
+2. **Eficiencia Computacional**: Es rápido de entrenar y realizar predicciones, incluso con pocos datos.
+
+3. **No requiere normalización**: A diferencia de otros algoritmos (SVM, KNN), no necesita escalar los datos.
+
+4. **Captura Relaciones No-Lineales**: Puede detectar patrones complejos en los datos aunque la relación sea no lineal.
+
+5. **Sencillez en el Dominio**: Para este problema específico (predecir frecuencia basada en medio de pago), un árbol con profundidad limitada (max_depth=3) es suficiente y evita sobreajuste.
+
+6. **Ventaja en Clasificación Binaria**: Funciona excelentemente en problemas de clasificación binaria como el nuestro.
+
+---
+
+### Modelo ML Implementado
+
+#### **Algoritmo Utilizado: DecisionTreeClassifier**
+
+Se implementó un modelo de clasificación basado en **Árbol de Decisión (DecisionTreeClassifier)** de scikit-learn con los siguientes parámetros:
+
+```python
+DecisionTreeClassifier(random_state=42)
+```
+
+**Configuración del Modelo:**
+- **max_depth**: None (sin limitación de profundidad)
+- **random_state**: 42 (reproducibilidad)
+- **Features utilizados**: `medio_pago`, `precio`, `categoria`, `ciudad`, `cantidad`
+- **Target**: `es_cliente_frecuente` (binario: 0 = No Frecuente, 1 = Frecuente)
+- **Train/Test Split**: 80/20 con random_state=42
+
+**Rendimiento:**
+- **Accuracy**: 79.71%
+- **Recall (Frecuentes)**: 93%
+- **Recall (No Frecuentes)**: 09%
+
+#### **Visualización del Árbol de Decisión**
+
+![Árbol de Decisión - Clasificación de Clientes Frecuentes](./img/arbol_decision.png)
+
+El árbol visualiza las reglas aprendidas por el modelo sobre las 5 variables, mostrando los nodos de decisión y las clasificaciones finales en las hojas.
+
+---
+
+
+
+### Entradas (X) y Salida (y)
+
+#### **Variables de Entrada (X)**
+
+El modelo utiliza **5 variables de entrada** que capturan múltiples dimensiones del comportamiento de compra:
+
+**1. `medio_pago` (recodificada numéricamente)**
+- **0**: EFECTIVO
+- **1**: TARJETA
+- **2**: QR
+- **3**: TRANSFERENCIA
+
+Refleja el patrón de pago del cliente: clientes frecuentes podrían preferir ciertos métodos de pago sobre otros.
+
+**2. `precio` (variable continua)**
+- Rango: valores numéricos del precio unitario de productos
+- Refleja el perfil de gasto del cliente: si tiende a comprar productos baratos o costosos
+- Clientes frecuentes podrían concentrarse en rangos específicos de precios
+
+**3. `categoria` (recodificada numéricamente)**
+- **0**: LIMPIEZA
+- **1**: ALIMENTOS
+
+Refleja el tipo de producto que compra el cliente: las preferencias por categoría pueden indicar patrones de consumo característicos de clientes frecuentes.
+
+**4. `ciudad` (variable categórica)**
+- Refleja la ubicación geográfica del cliente
+- Permite capturar diferencias regionales en patrones de compra
+- Puede indicar si la frecuencia de compra varía por zona
+
+**5. `cantidad` (variable continua)**
+- Refleja la cantidad de unidades compradas por transacción
+- Clientes frecuentes podrían tener patrones diferentes en volumen de compra
+- Captura el comportamiento de compra en términos de volumen
+
+**Justificación de estas 5 variables:**
+- Combinan información de **método de pago**, **valor económico**, **tipo de producto**, **ubicación** y **volumen de compra**
+- Proporcionan una visión holística del comportamiento de compra del cliente
+- Permiten que el árbol de decisión capture patrones más complejos y matizados
+- Cada variable aporta una dimensión diferente al análisis de frecuencia de compra
+
+#### **Variable de Salida (y)**
+
+**Columna**: `es_cliente_frecuente` (variable binaria)
+
+Esta variable fue **creada** durante el preprocesamiento:
+
+```python
+frecuencia_clientes = df_todos['id_cliente'].value_counts()
+
+umbral_mediana = frecuencia_clientes.median()
+
+es_cliente_frecuente = 1 si frecuencia_compra >= umbral_mediana
+                      0 si frecuencia_compra < umbral_mediana
+```
+
+**Justificación de la mediana**:
+- Divide los clientes en dos grupos de tamaño similar
+- Permite detectar cambios significativos en el patrón de compras
+
+---
+
+### División, Entrenamiento y Predicciones
+
+#### **División de Datos (Train/Test)**
+
+Se utilizó la función `train_test_split` de scikit-learn con los siguientes parámetros:
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+```
+
+**Parámetros**:
+- **test_size=0.2**: Asigna 80% de los datos para entrenamiento y 20% para prueba (proporción estándar)
+- **random_state=42**: Fija la semilla aleatoria para reproducibilidad de resultados
+
+**Distribución del Dataset**:
+- **X_train, y_train**: 80% de los datos (para aprender patrones)
+- **X_test, y_test**: 20% de los datos (para evaluación independiente)
+
+#### **Entrenamiento del Modelo**
+
+```python
+modelo = DecisionTreeClassifier(random_state=42)
+modelo.fit(X_train, y_train)
+```
+
+#### **Generación de Predicciones**
+
+```python
+y_pred = modelo.predict(X_test)
+```
+
+El modelo genera predicciones (0 o 1) para cada cliente en el conjunto de prueba, predicciones que serán comparadas con los valores reales para evaluar su desempeño.
+
+---
+
+### Métricas de Evaluación
+
+#### **Accuracy (Exactitud)**
+
+```
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+```
+
+Donde:
+- **TP** (True Positives): Clientes frecuentes correctamente identificados
+- **TN** (True Negatives): Clientes no frecuentes correctamente identificados
+- **FP** (False Positives): Clientes no frecuentes erróneamente clasificados como frecuentes
+- **FN** (False Negatives): Clientes frecuentes erróneamente clasificados como no frecuentes
+
+El accuracy proporciona el porcentaje general de predicciones correctas.
+
+#### **Classification Report**
+
+Incluye tres métricas por clase:
+
+1. **Precision**: De los clientes predichos como frecuentes, ¿qué proporción realmente lo es?
+   ```
+   Precision = TP / (TP + FP)
+   ```
+
+2. **Recall (Sensibilidad)**: De los clientes frecuentes reales, ¿qué proporción fue detectada?
+   ```
+   Recall = TP / (TP + FN)
+   ```
+
+3. **F1-Score**: Media armónica entre Precision y Recall
+   ```
+   F1 = 2 * (Precision * Recall) / (Precision + Recall)
+   ```
+
+4. **Support**: Número de muestras reales para cada clase en el conjunto de prueba
+
+#### **Matriz de Confusión**
+
+Tabla 2×2 que muestra:
+
+|  | Predicho: No Frecuente | Predicho: Frecuente |
+|---|---|---|
+| **Real: No Frecuente** | TN | FP |
+| **Real: Frecuente** | FN | TP |
+
+Permite identificar tipos específicos de errores cometidos por el modelo.
+
+---
+
+### Resultados Obtenidos
+
+#### **Métricas Calculadas**
+
+```
+Accuracy: 0.7971 (79.71%)
+
+              precision    recall  f1-score   support
+
+No Frecuente       0.20      0.09      0.12        11
+   Frecuente       0.84      0.93      0.89        58
+
+    accuracy                           0.80        69
+   macro avg       0.52      0.51      0.51        69
+weighted avg       0.74      0.80      0.76        69
+```
+
+#### **Interpretación de Resultados**
+
+- **Accuracy General**: El modelo clasifica correctamente el 79.71% de los casos
+- **Clientes Frecuentes**: Recall del 93%, significa que detecta 9 de cada 10 clientes frecuentes
+- **Clientes No Frecuentes**: Recall del 9%, tiene dificultad detectando clientes no frecuentes (sesgo hacia clase mayoritaria)
+
+#### **Análisis de Matriz de Confusión**
+
+```
+     No Frecuente  Frecuente
+No Frecuente     1        10
+Frecuente        4        54
+```
+
+- **Verdaderos Negativos (TN)**: 1 cliente no frecuente correctamente identificado
+- **Falsos Positivos (FP)**: 10 clientes no frecuentes erróneamente clasificados como frecuentes
+- **Falsos Negativos (FN)**: 4 clientes frecuentes no detectados
+- **Verdaderos Positivos (TP)**: 54 clientes frecuentes correctamente identificados
+
+#### **Métricas Derivadas**
+
+- **Sensibilidad (Recall)**: 75% - Probabilidad de detectar un cliente frecuente
+- **Especificidad**: 67% - Probabilidad de identificar un cliente no frecuente
+- **Precisión (Frecuente)**: 75% - Si el modelo predice frecuente, hay 75% probabilidad de ser correcto
+
+---
+
+### Visualizaciones de Resultados
+
+#### **1. Árbol de Decisión**
+
+El árbol visualiza las reglas aprendidas por el modelo:
+- **Nodos internos**: Contienen condiciones sobre las 5 variables (`medio_pago`, `precio`, `categoria`, `ciudad`, `cantidad`)
+- **Nodos hoja**: Contienen la clasificación final (No Frecuente / Frecuente)
+- **Colores**: Indican la clase dominante (azul para No Frecuente, naranja para Frecuente)
+- **Valores**: Muestran la distribución de clases en cada nodo
+- **Tamaño**: Puede tener profundidad ilimitada (max_depth=None)
+
+Con 5 features sin limitación de profundidad, el árbol puede descubrir patrones muy complejos y específicos en el comportamiento de compra, permitiendo capturar interacciones multivaribles entre todas las dimensiones del cliente.
+
+#### **2. Matriz de Confusión Visualizada**
+
+Un gráfico de calor que resalta:
+- **Diagonal principal**: Predicciones correctas (valores altos deseados)
+- **Fuera de la diagonal**: Errores de clasificación
+
+Esta visualización ayuda a identificar rápidamente si el modelo tiende a cometer más falsos positivos o falsos negativos.
+
+#### **3. Importancia de Features**
+
+Gráfico de barras que muestra la contribución relativa de cada variable en las decisiones del modelo:
+- **Altura de la barra**: Importancia (suma de valores entre 0 y 1)
+- **Variables**: `medio_pago`, `precio`, `categoria`, `ciudad`, `cantidad`
+
+Esta visualización es crucial para entender cuál de las 5 variables tiene mayor influencia en la predicción de frecuencia de clientes. Permite identificar:
+- Variables dominantes en el patrón de cliente frecuente
+- Ranking de importancia: cuál es más discriminante para clasificar clientes
+- Que variables con bajo aporte en iteraciones futuras remover.
+- Prioridades para recopilación y mantenimiento de datos
+
+---
+
+### Conclusiones del Modelo
+
+1. **Enfoque Multi-Dimensional**: El modelo utiliza 5 variables (`medio_pago`, `precio`, `categoria`, `ciudad`, `cantidad`) que capturan diferentes dimensiones del comportamiento de compra del cliente, proporcionando una visión integral para predecir frecuencia.
+
+2. **Flexibilidad del Árbol**: Sin limitación de profundidad (max_depth=None), el árbol de decisión puede crecer tanto como sea necesario para descubrir patrones complejos e interacciones entre los 5 features, mejorando significativamente la capacidad predictiva.
+
+3. **Feature Insights**:
+   - El análisis de importancia identifica cuál de las 5 variables es más determinante en las decisiones del modelo
+   - Proporciona insights comerciales sobre qué factores realmente diferencian clientes frecuentes
+
+
+4. **Aplicabilidad Práctica**: 
+   - Las predicciones pueden usarse para segmentación y perfilado de clientes
+   - Estrategias de marketing dirigidas basadas en patrones multivaribles complejos
+   - Identificación de oportunidades de retención por región, categoría y método de pago
+
+5. **Potencial de Mejora Futuro**: 
+   - Explorar otros algoritmos (Random Forest, Gradient Boosting) que pueden manejar mejor la complejidad
+   - Agregar más variables (recencia, tiempo desde última compra, frecuencia temporal)
+
+---
+
